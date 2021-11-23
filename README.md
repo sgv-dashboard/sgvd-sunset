@@ -1,5 +1,7 @@
 # sgvd-sunset
 
+## Example usage
+
 ```bash
 $ curl "http://localhost:5000/sunrise?lat=50.93134&lon=5.40244&date=23-11-2021"
 

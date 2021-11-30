@@ -3,3 +3,6 @@ Dockerfile
 .gitignore
 
 README.md
+LICENSE
+
+deploy.ps1

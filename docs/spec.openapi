@@ -1,0 +1,121 @@
+openapi: 3.0.0
+servers:
+  - description: Heroku
+    url: https://sgvd-sunset.herokuapp.com
+info:
+  description: Api for the sgv-dashboard in order to calculate sunset
+  version: "1.0.0"
+  title: sgvd-sunset
+  contact:
+    email: lowie.deferme@student.uhasselt.be
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: developers
+    description: Operations available to regular developers
+paths:
+  /sunrise:
+    get:
+      tags:
+        - developers
+      summary: Gets sunrise time
+      operationId: sunrise
+      description: |
+        By passing in the appropriate arguments, you can get the sunrise time at a specific location.
+      parameters:
+        - in: query
+          name: lat
+          description: The lattitude of the place you want the sunrise of.
+          required: true
+          schema:
+            type: number
+            format: float
+            minimum: -90
+            maximum: 90
+        - in: query
+          name: lon
+          description: The longitude of the place you want the sunrise of.
+          required: true
+          schema:
+            type: number
+            format: float
+            minimum: -180
+            maximum: 180
+        - in: query
+          name: date
+          description: The date at which you want to calculate the sunrise
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Sunrise time
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sunTimeJson"
+        "500":
+          description: bad input parameter
+  /sunset:
+    get:
+      tags:
+        - developers
+      summary: Gets sunset time
+      operationId: sunset
+      description: |
+        By passing in the appropriate arguments, you can get the sunset time at a specific location.
+      parameters:
+        - in: query
+          name: lat
+          description: The lattitude of the place you want the sunset of.
+          required: true
+          schema:
+            type: number
+            format: float
+            minimum: -90
+            maximum: 90
+        - in: query
+          name: lon
+          description: The longitude of the place you want the sunset of.
+          required: true
+          schema:
+            type: number
+            format: float
+            minimum: -180
+            maximum: 180
+        - in: query
+          name: date
+          description: The date at which you want to calculate the sunset
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Sunset time
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sunTimeJson"
+        "500":
+          description: bad input parameter
+components:
+  schemas:
+    sunTimeJson:
+      description: The input parameters and the requested time
+      type: object
+      properties:
+        datetime:
+          type: string
+          format: date-time
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: float
+            longitude:
+              type: number
+              format: float

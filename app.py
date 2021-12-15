@@ -26,7 +26,7 @@ def get_sunset():
     longitude = float(request.args.get('lon'))
     latitude = float(request.args.get('lat'))
     sunset = Sun().sunset(longitude, latitude, date)
-    return {'datetime': str(sunset.isoformat('T')+'Z'), 'location': {'longitude': longitude, 'latitude': latitude}}
+    return {'datetime': str(sunset.isoformat('T')), 'location': {'longitude': longitude, 'latitude': latitude}}
 
 
 @app.route('/sunrise', methods=['GET'])
@@ -35,4 +35,4 @@ def get_sunrise():
     longitude = float(request.args.get('lon'))
     latitude = float(request.args.get('lat'))
     sunrise = Sun().sunrise(longitude, latitude, date)
-    return {'datetime': str(sunrise.isoformat('T')+'Z'), 'location': {'longitude': longitude, 'latitude': latitude}}
+    return {'datetime': str(sunrise.isoformat('T')), 'location': {'longitude': longitude, 'latitude': latitude}}

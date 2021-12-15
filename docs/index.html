@@ -1,51 +1,427 @@
 <!DOCTYPE html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html>
+  <head>
+    <title>sgvd-sunset</title>
+    <style type="text/css">
+      body {
+        font-family: Trebuchet MS, sans-serif;
+        font-size: 15px;
+        color: #444;
+        margin-right: 24px;
+      }
 
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-responsive.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <script src="assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
-  <script src="assets/js/main.js" type="text/javascript"></script>
+      h1 {
+        font-size: 25px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      hr {
+        height: 1px;
+        border: 0;
+        color: #ddd;
+        background-color: #ddd;
+      }
 
-  <title>REST API Resources</title>
-</head>
-<body>
-  <div class="header">
-    <div class="top-bar">
-      <h1 id="logo"><a class="logo" href="/"><span>Swagger</span><span class="light">API Docs</span></a></h1>
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+
+      .license-url {
+        margin-left: 20px;
+      }
+
+      .model {
+        margin: 0 0 0px 20px;
+      }
+
+      .method {
+        margin-left: 20px;
+      }
+
+      .method-notes {
+        margin: 10px 0 20px 0;
+        font-size: 90%;
+        color: #555;
+      }
+
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+
+      .http-method {
+        text-transform: uppercase;
+      }
+
+      pre.get {
+        background-color: #0f6ab4;
+      }
+
+      pre.post {
+        background-color: #10a54a;
+      }
+
+      pre.put {
+        background-color: #c5862b;
+      }
+
+      pre.delete {
+        background-color: #a41e22;
+      }
+
+      .huge {
+        color: #fff;
+      }
+
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+
+      code {
+        white-space: pre;
+      }
+
+      .nickname {
+        font-weight: bold;
+      }
+
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+
+      .up {
+        float: right;
+      }
+
+      .parameter {
+        width: 500px;
+      }
+
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+
+      .param-type {
+        font-style: italic;
+      }
+
+      .param-enum-header {
+        width: 700px;
+        padding: 0 0 0 60px;
+        color: #777;
+        font-weight: bold;
+      }
+
+      .param-enum {
+        width: 700px;
+        padding: 0 0 0 80px;
+        color: #777;
+        font-style: italic;
+      }
+
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+
+      .field-items {
+        padding: 0 0 15px 0;
+        margin-bottom: 15px;
+      }
+
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+
+      .param-header {
+        font-weight: bold;
+      }
+
+      .method-tags {
+        text-align: right;
+      }
+
+      .method-tag {
+        background: none repeat scroll 0% 0% #24a600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #fff;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>sgvd-sunset</h1>
+    <div class="app-desc">
+      Api for the sgv-dashboard in order to calculate sunset
     </div>
-  </div>
-  <div class="model-container"></div>
-  <div class="content">
-    <div class="box clearfix">
-      <div class="sidebar">
-        <div class="section-box">
-          <div class="section-header">
-            Overview
-          </div>
-          <ul>
-            <li>Getting Started</li>
-          </ul>
+    <div class="app-desc">
+      Contact Info:
+      <a href="lowie.deferme@student.uhasselt.be">Lowie Deferme</a>
+    </div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath: https://sgvd-sunset.herokuapp.com/</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">
+      http://www.apache.org/licenses/LICENSE-2.0.html
+    </div>
+    <h2>Access</h2>
+
+    <h2><a name="__Methods">Methods</a></h2>
+    [ Jump to <a href="#__Models">Models</a> ]
+
+    <h3>Table of Contents</h3>
+    <div class="method-summary"></div>
+    <h4><a href="#Developers">Developers</a></h4>
+    <ul>
+      <li>
+        <a href="#sunrise"
+          ><code><span class="http-method">get</span> /sunrise</code></a
+        >
+      </li>
+      <li>
+        <a href="#sunset"
+          ><code><span class="http-method">get</span> /sunset</code></a
+        >
+      </li>
+    </ul>
+
+    <h1><a name="Developers">Developers</a></h1>
+    <div class="method">
+      <a name="sunrise"></a>
+      <div class="method-path">
+        <a class="up" href="#__Methods">Up</a>
+        <pre
+          class="get"
+        ><code class="huge"><span class="http-method">get</span> /sunrise</code></pre>
+      </div>
+      <div class="method-summary">
+        Gets sunrise time (<span class="nickname">sunrise</span>)
+      </div>
+      <div class="method-notes">
+        By passing in the appropriate arguments, you can get the sunrise time at
+        a specific location.
+      </div>
+
+      <h3 class="field-label">Query parameters</h3>
+      <div class="field-items">
+        <div class="param">lat (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The lattitude
+          of the place you want the sunrise of. format: float
         </div>
-        <div class="section-box">
-          <div class="section-header">
-            <a href="#!/DevelopersApi">DevelopersApi</a>
-          </div>
-          <ul>
-            <li><a href="#!/DevelopersApi#sunrise">sunrise</a></li>
-            <li><a href="#!/DevelopersApi#sunset">sunset</a></li>
-          </ul>
+        <div class="param">lon (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The longitude
+          of the place you want the sunrise of. format: float
+        </div>
+        <div class="param">date (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The date at
+          which you want to calculate the sunrise format: date
         </div>
       </div>
-    <div class="non-sidebar">
-      <div class="main-content">
-        <h2>Getting Started</h2>
-        <p>To begin using your fancy HTTP API, follow the steps below.</p>
-        <p>You can add some helpful tips, here</p>
+      <!-- field-items -->
+
+      <h3 class="field-label">Return type</h3>
+      <div class="return-type">
+        <a href="#sunTimeJson">sunTimeJson</a>
       </div>
+
+      <!--Todo: process Response Object and its headers, schema, examples -->
+
+      <h3 class="field-label">Example data</h3>
+      <div class="example-data-content-type">
+        Content-Type: application/json
+      </div>
+      <pre class="example"><code>{
+  "datetime" : "2000-01-23T04:56:07.000+00:00",
+  "location" : {
+    "latitude" : 0.8008282,
+    "longitude" : 6.0274563
+  }
+}</code></pre>
+
+      <h3 class="field-label">Produces</h3>
+      This API call produces the following media types according to the
+      <span class="header">Accept</span> request header; the media type will be
+      conveyed by the <span class="header">Content-Type</span> response header.
+      <ul>
+        <li><code>application/json</code></li>
+      </ul>
+
+      <h3 class="field-label">Responses</h3>
+      <h4 class="field-label">200</h4>
+      Sunrise time
+      <a href="#sunTimeJson">sunTimeJson</a>
+      <h4 class="field-label">500</h4>
+      bad input parameter
+      <a href="#"></a>
     </div>
-  </div>
-</body>
+    <!-- method -->
+    <hr />
+    <div class="method">
+      <a name="sunset"></a>
+      <div class="method-path">
+        <a class="up" href="#__Methods">Up</a>
+        <pre
+          class="get"
+        ><code class="huge"><span class="http-method">get</span> /sunset</code></pre>
+      </div>
+      <div class="method-summary">
+        Gets sunset time (<span class="nickname">sunset</span>)
+      </div>
+      <div class="method-notes">
+        By passing in the appropriate arguments, you can get the sunset time at
+        a specific location.
+      </div>
+
+      <h3 class="field-label">Query parameters</h3>
+      <div class="field-items">
+        <div class="param">lat (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The lattitude
+          of the place you want the sunset of. format: float
+        </div>
+        <div class="param">lon (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The longitude
+          of the place you want the sunset of. format: float
+        </div>
+        <div class="param">date (required)</div>
+
+        <div class="param-desc">
+          <span class="param-type">Query Parameter</span> &mdash; The date at
+          which you want to calculate the sunset format: date
+        </div>
+      </div>
+      <!-- field-items -->
+
+      <h3 class="field-label">Return type</h3>
+      <div class="return-type">
+        <a href="#sunTimeJson">sunTimeJson</a>
+      </div>
+
+      <!--Todo: process Response Object and its headers, schema, examples -->
+
+      <h3 class="field-label">Example data</h3>
+      <div class="example-data-content-type">
+        Content-Type: application/json
+      </div>
+      <pre class="example"><code>{
+  "datetime" : "2000-01-23T04:56:07.000+00:00",
+  "location" : {
+    "latitude" : 0.8008282,
+    "longitude" : 6.0274563
+  }
+}</code></pre>
+
+      <h3 class="field-label">Produces</h3>
+      This API call produces the following media types according to the
+      <span class="header">Accept</span> request header; the media type will be
+      conveyed by the <span class="header">Content-Type</span> response header.
+      <ul>
+        <li><code>application/json</code></li>
+      </ul>
+
+      <h3 class="field-label">Responses</h3>
+      <h4 class="field-label">200</h4>
+      Sunset time
+      <a href="#sunTimeJson">sunTimeJson</a>
+      <h4 class="field-label">500</h4>
+      bad input parameter
+      <a href="#"></a>
+    </div>
+    <!-- method -->
+    <hr />
+
+    <h2><a name="__Models">Models</a></h2>
+    [ Jump to <a href="#__Methods">Methods</a> ]
+
+    <h3>Table of Contents</h3>
+    <ol>
+      <li>
+        <a href="#sunTimeJson"><code>sunTimeJson</code></a>
+      </li>
+      <li>
+        <a href="#sunTimeJson_location"><code>sunTimeJson_location</code></a>
+      </li>
+    </ol>
+
+    <div class="model">
+      <h3>
+        <a name="sunTimeJson"><code>sunTimeJson</code></a>
+        <a class="up" href="#__Models">Up</a>
+      </h3>
+      <div class="model-description">
+        The input parameters and the requested time
+      </div>
+      <div class="field-items">
+        <div class="param">datetime (optional)</div>
+        <div class="param-desc">
+          <span class="param-type"><a href="#DateTime">Date</a></span> format:
+          date-time
+        </div>
+        <div class="param">location (optional)</div>
+        <div class="param-desc">
+          <span class="param-type"
+            ><a href="#sunTimeJson_location">sunTimeJson_location</a></span
+          >
+        </div>
+      </div>
+      <!-- field-items -->
+    </div>
+    <div class="model">
+      <h3>
+        <a name="sunTimeJson_location"><code>sunTimeJson_location</code></a>
+        <a class="up" href="#__Models">Up</a>
+      </h3>
+
+      <div class="field-items">
+        <div class="param">latitude (optional)</div>
+        <div class="param-desc">
+          <span class="param-type"><a href="#float">Float</a></span> format:
+          float
+        </div>
+        <div class="param">longitude (optional)</div>
+        <div class="param-desc">
+          <span class="param-type"><a href="#float">Float</a></span> format:
+          float
+        </div>
+      </div>
+      <!-- field-items -->
+    </div>
+  </body>
 </html>

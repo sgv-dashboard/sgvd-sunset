@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sun import Sun
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./docs')
 
 
 ###############################################################
@@ -22,17 +22,17 @@ def index():
 
 @app.route('/sunset', methods=['GET'])
 def get_sunset():
-    date = datetime.strptime(request.args.get('date'), '%d-%m-%Y').date()
+    date = datetime.strptime(request.args.get('date'), '%Y-%m-%d').date()
     longitude = float(request.args.get('lon'))
     latitude = float(request.args.get('lat'))
     sunset = Sun().sunset(longitude, latitude, date)
-    return {'date': str(sunset.date()), 'time': str(sunset.time()), 'location': {'longitude': longitude, 'latitude': latitude}}
+    return {'datetime': str(sunset.isoformat('T')+'Z'), 'location': {'longitude': longitude, 'latitude': latitude}}
 
 
 @app.route('/sunrise', methods=['GET'])
 def get_sunrise():
-    date = datetime.strptime(request.args.get('date'), '%d-%m-%Y').date()
+    date = datetime.strptime(request.args.get('date'), '%Y-%m-%d').date()
     longitude = float(request.args.get('lon'))
     latitude = float(request.args.get('lat'))
     sunrise = Sun().sunrise(longitude, latitude, date)
-    return {'date': str(sunrise.date()), 'time': str(sunrise.time()), 'location': {'longitude': longitude, 'latitude': latitude}}
+    return {'datetime': str(sunrise.isoformat('T')+'Z'), 'location': {'longitude': longitude, 'latitude': latitude}}
